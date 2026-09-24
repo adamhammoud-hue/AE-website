@@ -1,0 +1,26 @@
+{
+  "purpose": "Real photographic design references; do not present as AE client work.",
+  "assets": [
+    {
+      "file": "digital-product-reference.jpg",
+      "photographer": "Carlos Muza",
+      "title": "Statistics on a laptop",
+      "sourcePage": "https://unsplash.com/photos/laptop-computer-on-glass-top-table-hpjSkU2UYSU",
+      "photographerProfile": "https://unsplash.com/@kmuza",
+      "downloadedFrom": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&fm=jpg&q=90&w=2400",
+      "license": "Unsplash License",
+      "licensePage": "https://unsplash.com/license",
+      "sourcePublicationDate": "2016-04-17",
+      "downloadDimensions": [
+        2400,
+        1709
+      ],
+      "visualInspection": "Real photograph of laptop displaying a Gentelella admin dashboard on a glass table. Clear chart and navigation interface. No code-only screen. Navy and teal interface with warm wood in the background.",
+      "suggestedAlt": "Laptop displaying a dashboard with charts and navigation on a glass desk",
+      "suggestedCaption": "DESIGN REFERENCE \u2014 Digital interfaces. Photography by Carlos Muza / Unsplash.",
+      "threeByTwoCrop": "Compatible with aspect-ratio: 3 / 2; object-fit: cover; object-position: 50% 50%. Only a narrow strip at top and bottom is removed."
+    }
+  ],
+  "licenseSummary": "The source photo page explicitly marks this image free under the Unsplash License. The license permits free commercial and noncommercial use, downloading and modification without required attribution; photographer attribution is appreciated. Standalone sale without significant modification and compiling a competing image service are excluded.",
+  "verifiedDate": "2026-09-24"
+}
