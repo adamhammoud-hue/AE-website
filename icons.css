@@ -1,0 +1,6 @@
+/* Draw directional icons instead of depending on platform emoji fonts. */
+.ae-icon{display:inline-block;width:1em;height:1em;flex-shrink:0;vertical-align:-.125em;overflow:visible;pointer-events:none}
+.button>span[aria-hidden],.text-link>span[aria-hidden],.nav-contact>span[aria-hidden],.hero-bottom a>span[aria-hidden]{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-arrow>.ae-icon{width:.85em;height:.85em}
+footer>a:last-child{display:inline-flex;align-items:center;gap:8px}
+@media(max-width:360px){.header .nav-contact>span[aria-hidden]{display:none}}
