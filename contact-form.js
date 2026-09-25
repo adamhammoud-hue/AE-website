@@ -66,7 +66,7 @@
       _cc: 'elliott.huber@icloud.com',
       _template: 'table',
       _honey: '',
-      _url: fr ? 'https://aecompany.tech/fr.html' : 'https://aecompany.tech/'
+      _url: 'https://aecompany.tech/'
     };
     sending = true;
     button.disabled = true;
