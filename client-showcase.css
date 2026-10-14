@@ -1,81 +1,33 @@
 .client-showcase {
+  position: relative;
   margin-bottom: 36px;
   overflow: hidden;
-  border-radius: 26px;
+  border: 1px solid #ffffff30;
+  border-radius: 20px;
+  background: #102e27;
   scroll-margin-top: 110px;
 }
 
-.client-showcase-heading {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  align-items: center;
-  gap: 40px;
-  padding: 38px;
+.client-showcase-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
-.client-showcase .eyebrow {
-  margin: 0 0 16px;
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  line-height: 1.7;
-}
-
-.client-showcase h3 {
-  margin: 0 0 20px;
-  font: 400 clamp(32px, 3vw, 44px)/1.12 var(--serif);
-}
-
-.client-showcase-tags {
-  margin: 0;
-  color: var(--gold);
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-.client-showcase-tags span { padding-inline: 6px; }
-
-.client-showcase-copy > p {
-  margin: 0 0 12px;
-  color: var(--muted);
-  line-height: 1.75;
-}
-
-.client-showcase-preview {
-  background: #f5f4ee;
-  border-block: 1px solid #ffffff20;
-}
-
-.client-showcase-preview iframe {
+.client-showcase > iframe {
   display: block;
   width: 100%;
-  height: 680px;
+  height: min(720px, 80svh);
+  min-height: 500px;
   border: 0;
   color-scheme: light;
 }
 
-.client-showcase-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px 30px;
-  padding: 20px 38px;
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.client-showcase-footer p { margin: 0; color: var(--muted); }
-.client-showcase-footer a { color: var(--gold); flex-shrink: 0; }
-.client-showcase-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.client-showcase a:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
-
-@media (max-width: 960px) {
-  .client-showcase-heading { grid-template-columns: 1fr; gap: 22px; padding: 30px; }
-  .client-showcase-footer { padding: 20px 30px; flex-wrap: wrap; }
-}
-
 @media (max-width: 760px) {
-  .client-showcase { border-radius: 20px; }
-  .client-showcase-heading { padding: 25px; }
-  .client-showcase-preview iframe { height: 720px; }
-  .client-showcase-footer { padding: 20px 25px; }
+  .client-showcase { border-radius: 14px; }
 }
