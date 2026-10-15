@@ -1,6 +1,6 @@
 # AE — Creative Studio
 
-Website for Adam Hammoud and Elliott Huber. This export contains the current website, including the updated business-card photo with the connected AE logo, the skyline video, liquid-glass styling, animations, contact links, and reviews section.
+The English and French website for Adam Hammoud and Elliott Huber, published at https://aecompany.tech/. The approved Alpine redesign combines the seven-second opening animation, locally hosted typography, gold-accented service and package sections, interactive project previews, and the existing enquiry form.
 
 ## Save and upload to GitHub
 
@@ -22,16 +22,22 @@ Then open http://localhost:8000. Press Control+C in the terminal to stop the ser
 
 ## Edit the website
 
-- `index.html` — text, sections, contact details, and image references.
-- `styles.css` — layout, colors, typography, glass effects, and responsive styles.
-- `site.js` — video behavior, scroll animations, and pointer interactions.
-- `assets/` — the logo, photos, and background video used by the website.
+- `index.html` and `fr.html` — English and French content, contact details, and image references.
+- `design.css` — base layout, colours, glass effects, and responsive styles.
+- `refinements.css` — local typography, final section geometry, and gold accents below the opening.
+- `site.js` — video behaviour, navigation, disclosures, and pointer interactions.
+- `contact-form.js` and `ad-player.js` — enquiry submission and the bilingual advertising film player.
+- `assets/` — the logo, photos, licensed fonts, and responsive Alpine videos and posters.
 - `docs/` — media sources and the business-card image-edit prompt.
 
 This is a static HTML/CSS/JavaScript site. No npm install, build command, database, API key, or server-side application is required. The site files are ready for a static host; publishing is separate from storing the files in GitHub.
 
-The fonts load from Google Fonts and need internet access. Contact and review links open the visitor's email application. Reviews are added manually after permission; this version does not store or automatically publish comments.
+Fonts are served locally, with their licenses in `assets/fonts/`. The enquiry form uses the existing FormSubmit endpoint; direct contact, feedback and partnership links also open an email application. Feedback is published manually after permission. Reduced-motion preferences and data-saving mode use a static Alpine image. Video playback is muted, pauses offscreen, and uses a resolution suited to the device.
+
+## Publish
+
+GitHub Pages publishes the repository's `main` branch. Push the complete site, including new assets, and wait for the Pages deployment to finish. Preserve `CNAME` so the existing `aecompany.tech` domain continues to work. Check both languages and mobile layouts after deployment.
 
 ## Media
 
-The supplied AE logo is included. The business-card visual was edited with the built-in image-generation tool to match it. The laptop photograph is credited to Carlos Muza / Unsplash on the page. The skyline video is credited to Yura Forrat / Pexels in `docs/VIDEO-SOURCE.md`. Keep the included media-source records with the project.
+The supplied AE logo and existing business-card visual are retained. The opening uses the approved Alpine animation and its still-image fallback. Existing media and their source records remain in the repository for compatibility. The current visual system and typography references are documented in `docs/DESIGN-REFERENCES.md`.
