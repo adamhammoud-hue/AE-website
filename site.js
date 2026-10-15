@@ -127,63 +127,112 @@
   const sourceSize = window.innerWidth <= 760 ? 'mobile' : window.innerWidth >= 1800 ? '4k' : 'hd';
   const errorText = fr ? 'L’animation est indisponible. Une image fixe est affichée.' : 'Animation unavailable. A still image is displayed.';
   const saveData = Boolean(navigator.connection?.saveData);
-  let phase = 'intro', inView = true, ambientLoaded = false, failed = false;
-  let readyTimer;
+  const bounds = hero.getBoundingClientRect();
+  let phase = 'intro', inView = bounds.bottom > -100 && bounds.top < innerHeight + 100;
+  let ambientLoaded = false, failed = false, autoplayBlocked = false, pendingPlay = null;
+  intro.defaultMuted = ambient.defaultMuted = true;
   intro.muted = ambient.muted = true;
   const active = () => phase === 'ambient' ? ambient : intro;
-  const still = (announce = false) => {
-    clearTimeout(readyTimer);
+  const canPlay = () => !reduced.matches && !saveData && !document.hidden && inView && !failed;
+  const pause = () => {
+    // A pending play() rejects when paused. Its old rejection must not hide a newer playback.
+    pendingPlay = null;
     intro.pause(); ambient.pause();
+  };
+  const still = (announce = false) => {
+    pause();
     intro.classList.remove('is-visible'); ambient.classList.remove('is-visible');
     poster.src = 'assets/alpine/still.jpg';
     if (announce) { failed = true; status.textContent = errorText; }
   };
   const playActive = async () => {
-    if (reduced.matches || saveData || document.hidden || !inView || failed) return;
-    try { await active().play(); }
-    catch { still(); }
+    const video = active();
+    if (!canPlay() || autoplayBlocked || !video.getAttribute('src') || !video.paused || pendingPlay?.video === video) return;
+    const attempt = {video};
+    pendingPlay = attempt;
+    try { await video.play(); }
+    catch (error) {
+      if (pendingPlay !== attempt || active() !== video) return;
+      if (error.name === 'NotAllowedError') {
+        autoplayBlocked = true;
+        still();
+      } else if (error.name !== 'AbortError') {
+        still(true);
+      }
+      // AbortError is an interrupted request, not a broken video. Resume on visibility/canplay.
+    } finally {
+      if (pendingPlay === attempt) pendingPlay = null;
+    }
   };
   const loadAmbient = () => {
-    if (ambientLoaded) return;
+    if (ambientLoaded || reduced.matches || saveData) return;
     ambientLoaded = true;
+    ambient.preload = 'auto';
     ambient.src = `assets/alpine/ambient-${sourceSize}.mp4`;
-    ambient.preload = 'auto'; ambient.load();
+  };
+  const prepareAmbient = () => {
+    if (intro.currentTime < 1.5 || !Number.isFinite(intro.duration)) return;
+    for (let i = 0; i < intro.buffered.length; i++) {
+      if (intro.buffered.start(i) <= intro.currentTime &&
+          intro.buffered.end(i) - intro.currentTime >= Math.min(3, intro.duration - intro.currentTime - .1)) {
+        loadAmbient(); break;
+      }
+    }
   };
   intro.addEventListener('playing', () => {
-    clearTimeout(readyTimer);
     intro.classList.add('is-visible');
+    status.textContent = '';
   });
-  intro.addEventListener('timeupdate', () => { if (intro.currentTime > 1.5) loadAmbient(); });
+  intro.addEventListener('timeupdate', prepareAmbient);
+  intro.addEventListener('progress', prepareAmbient);
   intro.addEventListener('ended', () => {
+    pendingPlay = null;
     phase = 'ambient'; loadAmbient(); playActive();
   });
   ambient.addEventListener('playing', () => {
     ambient.classList.add('is-visible');
   });
   for (const video of [intro, ambient]) {
+    video.addEventListener('canplay', () => { if (video === active()) playActive(); });
     video.addEventListener('error', () => still(true));
   }
   const start = () => {
     if (reduced.matches || saveData) return still();
-    failed = false; status.textContent = ''; phase = 'intro';
+    pause();
+    failed = false; autoplayBlocked = false; status.textContent = ''; phase = 'intro';
     poster.src = 'assets/alpine/opening.jpg';
     intro.classList.remove('is-visible'); ambient.classList.remove('is-visible');
-    intro.src = `assets/alpine/intro-${sourceSize}.mp4`;
-    intro.preload = 'auto'; intro.load();
-    readyTimer = setTimeout(() => { if (intro.readyState < 2) still(); }, 10000);
+    const source = `assets/alpine/intro-${sourceSize}.mp4`;
+    intro.preload = 'auto';
+    // Reuse the early HTML preload rather than restarting its download.
+    if (intro.getAttribute('src') !== source) intro.src = source;
+    else if (intro.error) intro.load();
+    else if (intro.readyState > 0) intro.currentTime = 0;
+    // No fixed deadline: a slow first response must remain eligible to play when ready.
     playActive();
   };
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(entries => {
       inView = entries[0].isIntersecting;
-      if (!inView) { intro.pause(); ambient.pause(); }
+      if (!inView) pause();
       else playActive();
     }, {threshold:0,rootMargin:'100px'}).observe(hero);
   }
+  const resume = () => {
+    if (!canPlay()) return;
+    autoplayBlocked = false;
+    playActive();
+  };
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { intro.pause(); ambient.pause(); }
-    else playActive();
+    if (document.hidden) pause();
+    else resume();
   });
+  window.addEventListener('pageshow', resume);
+  window.addEventListener('online', () => { if (failed) start(); else resume(); });
+  // Some browser settings require a gesture even for muted video. Retry on real interaction.
+  for (const event of ['pointerup', 'keydown']) {
+    document.addEventListener(event, () => { if (autoplayBlocked) resume(); }, {passive:true});
+  }
   reduced.addEventListener('change', () => {
     if (reduced.matches) {
       document.documentElement.classList.remove('motion-ready'); still();

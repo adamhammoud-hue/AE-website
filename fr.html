@@ -22,7 +22,7 @@
 
 
 
-<link rel="preload" as="font" href="assets/fonts/instrument-sans-latin.woff2" type="font/woff2" crossorigin=""><link rel="preload" as="font" href="assets/fonts/instrument-serif-italic-latin.woff2" type="font/woff2" crossorigin=""><link rel="preload" as="image" href="assets/alpine/opening.jpg"><link rel="stylesheet" href="design.css?v=20261015-alpine-left-2"><link rel="stylesheet" href="refinements.css?v=20261015-gold-1"><script src="site.js?v=20261015-atelier-2" defer=""></script><script src="contact-form.js?v=20261015-atelier-2" defer=""></script><script src="ad-player.js?v=20261015-atelier-2" defer=""></script><meta property="og:title" content="AE Company — Sites web et identité visuelle pour les petites entreprises"><meta property="og:description" content="Sites web, visuels publicitaires et identité visuelle pour les indépendants et les petites entreprises. Découvrez nos réalisations et demandez un appel gratuit de 15 minutes."><meta property="og:type" content="website"><meta property="og:url" content="https://aecompany.tech/fr.html"><meta property="og:image" content="https://aecompany.tech/assets/alpine/still.jpg"><meta property="og:locale" content="fr_CH"></head>
+<link rel="preload" as="font" href="assets/fonts/instrument-sans-latin.woff2" type="font/woff2" crossorigin=""><link rel="preload" as="font" href="assets/fonts/instrument-serif-italic-latin.woff2" type="font/woff2" crossorigin=""><link rel="preload" as="image" href="assets/alpine/opening.jpg"><link rel="stylesheet" href="design.css?v=20261015-alpine-left-2"><link rel="stylesheet" href="refinements.css?v=20261015-gold-1"><script src="site.js?v=20261015-playback-1" defer=""></script><script src="contact-form.js?v=20261015-atelier-2" defer=""></script><script src="ad-player.js?v=20261015-atelier-2" defer=""></script><meta property="og:title" content="AE Company — Sites web et identité visuelle pour les petites entreprises"><meta property="og:description" content="Sites web, visuels publicitaires et identité visuelle pour les indépendants et les petites entreprises. Découvrez nos réalisations et demandez un appel gratuit de 15 minutes."><meta property="og:type" content="website"><meta property="og:url" content="https://aecompany.tech/fr.html"><meta property="og:image" content="https://aecompany.tech/assets/alpine/still.jpg"><meta property="og:locale" content="fr_CH"></head>
 <body>
 <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><filter id="ae-monogram-cutout" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.973 0 0 0 0 0.973 0 0 0 0 0.933 1.3 0 0 0 -0.25"></feColorMatrix></filter></defs></svg>
 <a class="skip" href="#main">Aller au contenu</a>
@@ -35,6 +35,17 @@
 <main id="main">
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-media" aria-hidden="true"><img class="hero-poster" src="assets/alpine/opening.jpg" alt="" width="1920" height="1080" fetchpriority="high"><video id="alpine-intro" muted="" playsinline="" preload="none" poster="assets/alpine/opening.jpg" aria-hidden="true" tabindex="-1"></video><video id="alpine-ambient" muted="" loop="" playsinline="" preload="none" aria-hidden="true" tabindex="-1"></video></div>
+    <script>
+      // Begin buffering the opening before the deferred interface scripts execute.
+      (() => {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches || navigator.connection?.saveData) return;
+        const video = document.getElementById('alpine-intro');
+        const size = innerWidth <= 760 ? 'mobile' : innerWidth >= 1800 ? '4k' : 'hd';
+        video.preload = 'auto';
+        video.src = `assets/alpine/intro-${size}.mp4`;
+      })();
+    </script>
+
 
     <div class="hero-copy"><h1 id="hero-title"><span>Un site qui donne vie</span> <span class="hero-title-accent">à votre projet.</span></h1><div class="hero-actions"><a class="button hero-button glass-action" href="#contact">Parlons de votre projet <svg class="ae-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"></path></svg></a></div></div>
 
