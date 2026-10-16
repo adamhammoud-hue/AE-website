@@ -5,13 +5,13 @@
   const fr = form.dataset.language === 'fr';
   const text = fr ? {
     send: 'Envoyer ma demande', sending: 'Envoi en cours…',
-    success: 'Votre demande a bien été transmise. Adam et Elliott vous répondront par e-mail.',
+    success: 'Votre demande a bien été transmise. Vous recevrez une réponse par e-mail sous un jour ouvré. Si vous avez demandé un appel, nous conviendrons ensemble d’un horaire.',
     failure: 'Nous n’avons pas pu confirmer l’envoi. Votre message est conservé ci-dessus. Réessayez ou contactez-nous par e-mail avec les liens ci-dessous.',
     activation: 'Le formulaire est momentanément indisponible. Votre message est conservé. Contactez Adam ou Elliott par e-mail avec les liens ci-dessous.',
     whitespace: 'Veuillez remplir ce champ.', subject: 'AE Company — Nouvelle demande via le site', language: 'Français'
   } : {
     send: 'Send my enquiry', sending: 'Sending…',
-    success: 'Your enquiry has been submitted. Adam and Elliott will reply by email.',
+    success: 'Your enquiry has been submitted. You’ll receive an email reply within one business day. If you requested a call, we’ll agree a time with you.',
     failure: 'We couldn’t confirm delivery. Your message is still above. Please try again or contact us using the email links below.',
     activation: 'The form is temporarily unavailable. Your message is still here. Please email Adam or Elliott using the links below.',
     whitespace: 'Please complete this field.', subject: 'AE Company — New website enquiry', language: 'English'
@@ -19,13 +19,18 @@
   const button = form.querySelector('button[type="submit"]');
   const status = document.getElementById('enquiry-status');
   const service = form.elements.namedItem('service');
+  const packageSelect = form.elements.namedItem('package');
+  const packageField = document.getElementById('enquiry-package-field');
   const callNote = document.getElementById('enquiry-call-note');
   let sending = false;
   const updateService = () => {
     callNote.hidden = service.value !== 'call';
+    packageField.hidden = !['website', 'redesign', 'launch'].includes(service.value);
+    if (packageField.hidden) packageSelect.value = '';
     const message = form.elements.namedItem('message');
-    if (service.value === 'call') message.setAttribute('aria-describedby', 'enquiry-call-note');
-    else message.removeAttribute('aria-describedby');
+    message.setAttribute('aria-describedby', service.value === 'call'
+      ? 'enquiry-message-help enquiry-call-note'
+      : 'enquiry-message-help');
   };
   form.addEventListener('input', event => {
     if (typeof event.target.setCustomValidity === 'function') event.target.setCustomValidity('');
@@ -35,6 +40,7 @@
     link.addEventListener('click', () => {
       if (sending) return;
       service.value = link.dataset.enquiryService;
+      packageSelect.value = link.dataset.enquiryPackage || '';
       updateService();
       form.elements.namedItem('name').focus({preventScroll:true});
     });
@@ -44,6 +50,7 @@
     status.dataset.state = state;
   };
   button.disabled = false;
+  updateService();
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (sending) return;
@@ -68,6 +75,7 @@
       _honey: '',
       _url: 'https://aecompany.tech/'
     };
+    if (!packageField.hidden && packageSelect.value) data.package = packageSelect.value;
     sending = true;
     button.disabled = true;
     button.textContent = text.sending;

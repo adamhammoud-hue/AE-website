@@ -41,7 +41,7 @@
   // Objects respond to a fine pointer; the card and its click target stay stable.
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const pointerResets = [];
-  document.querySelectorAll('.case-image,.service-card-link').forEach(surface => {
+  document.querySelectorAll('.case-image,.service-card-link,.website-tier').forEach(surface => {
     let frame = 0, bounds = null, point = null;
     const distance = surface.matches('.case-image') ? 3 : 8;
     const reset = () => {
