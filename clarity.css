@@ -250,3 +250,57 @@
  .tier-chapter .tier-art { width: 48px; height: 64px; }
  .tier-heading-price { padding-left: 0; }
 }
+
+/* Each package carries its own palette across the entire chapter. */
+.tier-chapter[data-tier="essential"] {
+ --accent: #e3c58d;
+ --tier-surface: #211f1a;
+ --tier-edge: #e3c58d50;
+ --tier-tint: #e3c58d12;
+ --tier-glass: #413a2be8;
+ --muted: #c4beb2;
+}
+.tier-chapter[data-tier="signature"] {
+ --accent: #93c9ff;
+ --tier-surface: #142333;
+ --tier-edge: #93c9ff50;
+ --tier-tint: #93c9ff12;
+ --tier-glass: #223e59e8;
+ --muted: #b9c8d8;
+}
+.tier-chapter[data-tier="immersive"] {
+ --accent: #efa182;
+ --tier-surface: #2a1d19;
+ --tier-edge: #efa18250;
+ --tier-tint: #efa18212;
+ --tier-glass: #513328e8;
+ --muted: #d0bbb2;
+}
+.tier-chapter { position: relative; isolation: isolate; --line: var(--tier-edge); padding-top: 38px; }
+.tier-chapter::before {
+ content: ''; position: absolute; z-index: -1;
+ inset: 0 calc(-1 * var(--gutter));
+ background: var(--tier-surface);
+ border-top: 2px solid var(--tier-edge);
+ pointer-events: none;
+}
+.tier-chapter + .tier-chapter { border-top: 0; }
+.tier-number { background: var(--tier-tint); }
+.tier-chapter .case-study, .tier-chapter #azur-example {
+ --accent: inherit;
+ --project-edge: var(--tier-edge);
+ --project-hover: var(--accent);
+ --project-glass: var(--tier-glass);
+}
+.tier-chapter .text-link, .tier-chapter .text-link .ae-icon,
+.tier-chapter .project-open, .tier-chapter .project-category { color: var(--accent); }
+.tier-chapter .project-open { background: var(--tier-glass); border-color: var(--tier-edge); }
+.tier-chapter .project-details summary { color: var(--accent); }
+.tier-index a:nth-child(1) { --accent: #e3c58d; }
+.tier-index a:nth-child(2) { --accent: #93c9ff; }
+.tier-index a:nth-child(3) { --accent: #efa182; }
+.tier-index a { border-bottom: 1px solid var(--accent); }
+.package-showcase .tier-common { margin-top: 24px; }
+@media (max-width: 760px) {
+ .tier-chapter { padding-top: 28px; }
+}
