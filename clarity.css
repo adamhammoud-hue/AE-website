@@ -199,3 +199,54 @@
 }
 
 .tier-project #azur-example { --accent: #e2bb7c; --project-edge: #e2bb7c43; --project-hover: #e2bb7c83; --project-glass: #54412abd; }
+
+/* Number, name and investment read together; illustrations remain pure linework. */
+.tier-chapter { padding-bottom: 60px; }
+.tier-chapter + .tier-chapter { padding-top: 42px; }
+.tier-chapter-heading { grid-template-columns: minmax(0, 1fr) 170px; gap: 28px; margin-bottom: 26px; }
+.tier-heading-copy { min-width: 0; }
+.tier-title-row { display: flex; align-items: center; flex-wrap: wrap; gap: 18px 32px; }
+.tier-name { display: flex; align-items: center; gap: 18px; min-width: 0; }
+.tier-number { display: inline-grid; place-items: center; flex: 0 0 66px; width: 66px; height: 66px; border: 1px solid var(--accent); border-radius: 50%; font: 400 39px/1 var(--serif); color: var(--accent); }
+.tier-chapter .tier-chapter-heading h3 { font-size: clamp(38px, 4.2vw, 64px); margin: 0; }
+.tier-heading-price { min-width: 0; }
+.tier-heading-price .package-price { font: 400 clamp(23px, 2.1vw, 32px)/1.25 var(--sans); color: var(--accent); letter-spacing: -.035em; text-transform: none; white-space: nowrap; gap: 8px; margin: 0; }
+.tier-heading-price .tier-range-note { color: var(--muted); font-size: 10px; line-height: 1.5; margin: 6px 0 0; }
+.tier-chapter-heading .tier-tagline { margin: 15px 0 0 84px; font-size: clamp(22px, 2vw, 29px); }
+.tier-chapter .tier-art { width: 170px; height: 135px; padding: 0; border-radius: 0; background: transparent; color: var(--accent); }
+.tier-chapter .tier-art svg * { fill: none !important; stroke: currentColor; }
+.tier-chapter .tier-art .tier-back { opacity: .55; }
+.tier-story { margin-top: 30px; padding-top: 28px; }
+.tier-example-note { margin-bottom: 16px; }
+.tier-overview > .tier-cta { width: fit-content; margin-top: 8px; padding-top: 0; min-height: 44px; }
+.tier-project .case-copy { padding-top: 25px; }
+@media (min-width: 761px) and (max-width: 1100px) {
+ .tier-chapter-heading { grid-template-columns: minmax(0, 1fr) 130px; gap: 18px; }
+ .tier-chapter .tier-art { width: 130px; height: 110px; }
+ .tier-name { gap: 14px; }
+ .tier-number { width: 52px; height: 52px; flex-basis: 52px; font-size: 32px; }
+ .tier-title-row { gap: 14px 22px; }
+ .tier-chapter .tier-chapter-heading h3 { font-size: 38px; }
+ .tier-chapter-heading .tier-tagline { margin-left: 66px; }
+}
+@media (max-width: 760px) {
+ .tier-chapter { padding-bottom: 40px; }
+ .tier-chapter + .tier-chapter { padding-top: 30px; }
+ .tier-chapter-heading { grid-template-columns: minmax(0, 1fr) 64px; gap: 12px; align-items: start; margin-bottom: 22px; }
+ .tier-chapter .tier-art { width: 64px; height: 75px; margin-top: 0; }
+ .tier-title-row { gap: 12px; }
+ .tier-name { gap: 10px; }
+ .tier-number { width: 40px; height: 40px; flex-basis: 40px; font-size: 28px; }
+ .tier-chapter .tier-chapter-heading h3 { font-size: clamp(25px, 6.7vw, 38px); line-height: 1.1; }
+ .tier-heading-price { padding-left: 50px; }
+ .tier-heading-price .package-price { font-size: 23px; }
+ .tier-heading-price .tier-currency { font-size: 9px; }
+ .tier-heading-price .tier-range-note { font-size: 9px; }
+ .tier-chapter-heading .tier-tagline { margin: 14px 0 0; font-size: 21px; }
+ .tier-story { margin-top: 22px; padding-top: 22px; gap: 26px; }
+}
+@media (max-width: 380px) {
+ .tier-chapter-heading { grid-template-columns: minmax(0, 1fr) 48px; gap: 8px; }
+ .tier-chapter .tier-art { width: 48px; height: 64px; }
+ .tier-heading-price { padding-left: 0; }
+}
